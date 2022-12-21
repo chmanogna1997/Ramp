@@ -48,21 +48,16 @@ export const getTransactionsByEmployee = ({ employeeId }: RequestByEmployeeParam
 }
 
 export const setTransactionApproval = ({ transactionId, value }: SetTransactionApprovalParams): void => {
-  console.log("in setTransaction approval>>>>>")
   const transaction = data.transactions.find(
     (currentTransaction) => currentTransaction.id === transactionId
   )
 
-  console.log("the transaction is", transaction)
-  console.log("value is", value)
 
   if (!transaction) {
     throw new Error("Invalid transaction to approve")
   }
 
   transaction.approved = value
-
-  console.log(" after transaction", transaction)
 
   
 }

@@ -14,16 +14,9 @@ export function useCustomFetch() {
     ): Promise<TData | null> =>
       wrappedRequest<TData>(async () => {
 
-        // console.log("endpoint and params are", endpoint, params)
-
-        // clearCache()
 
         const cacheKey = getCacheKey(endpoint, params)
-        const cacheResponse = cache?.current.get(cacheKey)
-
-        // console.log("cache response is", cacheResponse)
-
-        
+        const cacheResponse = cache?.current.get(cacheKey)        
 
         if (cacheResponse) {
           const data = JSON.parse(cacheResponse)
@@ -34,7 +27,6 @@ export function useCustomFetch() {
 
         const result = await fakeFetch<TData>(endpoint, params)
         cache?.current.set(cacheKey, JSON.stringify(result))
-        // console.log("the result iswith cache>>>>>>>> ", result)
         return result
       }),
     [cache, wrappedRequest]
@@ -46,9 +38,7 @@ export function useCustomFetch() {
       params?: TParams
     ): Promise<TData | null> =>
       wrappedRequest<TData>(async () => {
-        console.log("in custom fetch", endpoint,params)
         const result = await fakeFetch<TData>(endpoint, params)
-        // console.log("the result is without cache >>>> ", result)
         return result
       }),
     [wrappedRequest]
